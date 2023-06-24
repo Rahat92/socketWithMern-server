@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Message = require("./model/messageModel");
 
 dotenv.config({ path: "./.env" });
-console.log(process.env.PORT)
+console.log(process.env.PORT);
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
@@ -14,10 +14,13 @@ app.use(express.json());
 
 const server = http.createServer(app);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/message", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://khrahat92:${process.env.DB_PASS}@cluster0.xuxm5vo.mongodb.net/VideoStream`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("DB Connected");
   })

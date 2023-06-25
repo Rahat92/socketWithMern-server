@@ -52,18 +52,13 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-// app.use("/api/v1/messages", messageRouter);
 io.on("connection", async (socket) => {
   console.log(`user connected: ${socket.id}`);
   const messages = await Message.find();
   io.emit("receive_message", messages);
-  // io.emit("start_video", messages[0].message);
   const special = await Message.find({ name: "admin" });
   if (special.length > 0) {
-    // setInterval(() => {
-    //   const date = new Date().toLocaleTimeString();
-    //   console.log("mydate", date);
-    // }, 1000);
+
     io.emit("start_video", special[0]?.message);
   }
 
@@ -99,7 +94,7 @@ io.on("connection", async (socket) => {
       io.emit("start_video", "");
       io.emit("count", "00:00:00");
       return clearInterval(timer);
-    }, myTime - Date.now() + 1200000);
+    }, myTime - Date.now() + 60000);
   });
 });
 

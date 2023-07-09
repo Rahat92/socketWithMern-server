@@ -74,7 +74,7 @@ app.get("/", (req, res) => {
 });
 const io = new Server(server, {
   cors: {
-    origin: "https://socketlivevideoserver.onrender.com/",
+    origin: "https://socketlivevideoserver.onrender.com",
     methods: ["GET", "POST"],
   },
 });

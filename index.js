@@ -48,7 +48,10 @@ app.get("/", (req, res) => {
 });
 const io = new Server(server, {
   cors: {
-    origin: "https://socketlivevideoserver.onrender.com/",
+    origin: [
+      "https://socketlivevideoserver.onrender.com/",
+      "http://localhost:3000",
+    ],
     methods: ["GET", "POST"],
   },
 });
@@ -58,7 +61,6 @@ io.on("connection", async (socket) => {
   io.emit("receive_message", messages);
   const special = await Message.find({ name: "admin" });
   if (special.length > 0) {
-
     io.emit("start_video", special[0]?.message);
   }
 
